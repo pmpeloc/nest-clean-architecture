@@ -1,13 +1,15 @@
 import { DynamicModule, Module } from '@nestjs/common';
+
 import { addTodoUseCases } from '../../usecases/todo/addTodo.usecases';
+import { DatabaseTodoRepository } from '../repositories/todo.repository';
 import { deleteTodoUseCases } from '../../usecases/todo/deleteTodo.usecases';
-import { getTodosUseCases } from '../../usecases/todo/getTodos.usecases';
-import { updateTodoUseCases } from '../../usecases/todo/updateTodo.usecases';
 import { ExceptionsModule } from '../exceptions/exceptions.module';
+import { getTodosUseCases } from '../../usecases/todo/getTodos.usecases';
+import { getTodoUseCases } from '../../usecases/todo/getTodo.usecases';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
 import { RepositoriesModule } from '../repositories/repositories.module';
-import { DatabaseTodoRepository } from '../repositories/todo.repository';
+import { updateTodoUseCases } from '../../usecases/todo/updateTodo.usecases';
 import { UseCaseProxy } from './usecases-proxy';
 
 @Module({
@@ -28,7 +30,7 @@ export class UsecasesProxyModule {
           inject: [DatabaseTodoRepository],
           provide: UsecasesProxyModule.GET_TODO_USECASES_PROXY,
           useFactory: (todoRepository: DatabaseTodoRepository) =>
-            new UseCaseProxy(new getTodosUseCases(todoRepository)),
+            new UseCaseProxy(new getTodoUseCases(todoRepository)),
         },
         {
           inject: [DatabaseTodoRepository],

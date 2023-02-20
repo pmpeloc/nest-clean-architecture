@@ -8,7 +8,7 @@ export class addTodoUseCases {
     private readonly todoRepository: TodoRepository,
   ) {}
 
-  async execute(content: string): Promise<void> {
+  async execute(content: string): Promise<TodoM> {
     const todo = new TodoM();
     todo.content = content;
     todo.isDone = false;

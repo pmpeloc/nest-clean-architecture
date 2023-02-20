@@ -21,9 +21,10 @@ export class DatabaseTodoRepository implements TodoRepository {
       { isDone: isDone },
     );
   }
-  async insert(todo: TodoM): Promise<void> {
+  async insert(todo: TodoM): Promise<TodoM> {
     const todoEntity = this.toTodoEntity(todo);
     await this.todoEntityRepository.insert(todoEntity);
+    return todo;
   }
   async findAll(): Promise<TodoM[]> {
     const todosEntity = await this.todoEntityRepository.find();
